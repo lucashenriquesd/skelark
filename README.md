@@ -1,0 +1,1 @@
+Skeleton Architecture for fast and easy general app/service setup
