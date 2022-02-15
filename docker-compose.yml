@@ -95,6 +95,25 @@ services:
     networks:
       - skelark-network
 
+  rabbitmq:
+    container_name: skelark-rabbitmq
+    build:
+      context: ./
+      dockerfile: dockerfiles/rabbitmq/Dockerfile
+    tty: true
+    ports:
+      - "${RABBITMQ_PORT}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT}:15672"
+    hostname: ${RABBITMQ_HOSTNAME}
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    working_dir: /var/lib/rabbitmq
+    volumes:
+        - ./data/rabbitmq:/var/lib/rabbitmq
+    networks:
+        - skelark-network
+
 networks:
   skelark-network:
     driver: bridge
