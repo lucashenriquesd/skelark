@@ -5,7 +5,7 @@ services:
     container_name: skelark-redis
     build:
       context: ./
-      dockerfile: dockerfiles/redis/Dockerfile
+      dockerfile: Dockerfile
     tty: true
     ports:
       - "${REDIS_PORT}:6379"

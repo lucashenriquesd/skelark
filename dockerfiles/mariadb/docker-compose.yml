@@ -5,7 +5,7 @@ services:
     container_name: skelark-mariadb
     build:
       context: ./
-      dockerfile: dockerfiles/mariadb/Dockerfile
+      dockerfile: Dockerfile
     tty: true
     ports:
       - "${MARIADB_PORT}:3306"
@@ -14,7 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
     working_dir: /var/lib/mysql
     volumes:
-      - ./data/mariadb:/var/lib/mysql/
-      # - ./mysql/my.cnf:/etc/mysql/my.cnf
+      - ../../data/mariadb:/var/lib/mysql/
+      # - ../../mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - skelark-network

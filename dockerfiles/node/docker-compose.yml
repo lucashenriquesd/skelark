@@ -5,13 +5,13 @@ services:
     container_name: skelark-node
     build:
       context: ./
-      dockerfile: dockerfiles/node/Dockerfile
+      dockerfile: Dockerfile
     tty: true
     ports:
       - "${NODE_PORT}:3000"
       - "${NODE_DEBUG_PORT}:9229"
     working_dir: /usr/src/app
     volumes:
-      - ./:/usr/src/app
+      - ../../:/usr/src/app
     networks:
       - skelark-network

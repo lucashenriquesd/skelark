@@ -5,7 +5,7 @@ services:
     container_name: skelark-rabbitmq
     build:
       context: ./
-      dockerfile: dockerfiles/rabbitmq/Dockerfile
+      dockerfile: Dockerfile
     tty: true
     ports:
       - "${RABBITMQ_PORT}:5672"
@@ -16,6 +16,6 @@ services:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     working_dir: /var/lib/rabbitmq
     volumes:
-      - ./data/rabbitmq:/var/lib/rabbitmq
+      - ../../data/rabbitmq:/var/lib/rabbitmq
     networks:
       - skelark-network

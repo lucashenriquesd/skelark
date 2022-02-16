@@ -1,44 +1,44 @@
 version: '3.8'
 services:
 
+  mariadb:
+    extends:
+      file: dockerfiles/mariadb/docker-compose.yml
+      service: mariadb
+
+  mongodb:
+    extends:
+      file: dockerfiles/mongodb/docker-compose.yml
+      service: mongodb
+
   nginx:
     extends:
-      file: nginx.docker-compose.yml
+      file: dockerfiles/nginx/docker-compose.yml
       service: nginx
 
   node:
     extends:
-      file: node.docker-compose.yml
+      file: dockerfiles/node/docker-compose.yml
       service: node
 
   php:
     extends:
-      file: php.docker-compose.yml
+      file: dockerfiles/php/docker-compose.yml
       service: php
-
-  mariadb:
-    extends:
-      file: mariadb.docker-compose.yml
-      service: mariadb
 
   postgres:
     extends:
-      file: postgres.docker-compose.yml
+      file: dockerfiles/postgres/docker-compose.yml
       service: postgres
-
-  mongodb:
-    extends:
-      file: mongodb.docker-compose.yml
-      service: mongodb
 
   rabbitmq:
     extends:
-      file: rabbitmq.docker-compose.yml
+      file: dockerfiles/rabbitmq/docker-compose.yml
       service: rabbitmq
 
   redis:
     extends:
-      file: redis.docker-compose.yml
+      file: dockerfiles/redis/docker-compose.yml
       service: redis
 
 networks:
