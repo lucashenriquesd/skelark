@@ -110,9 +110,20 @@ services:
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
     working_dir: /var/lib/rabbitmq
     volumes:
-        - ./data/rabbitmq:/var/lib/rabbitmq
+      - ./data/rabbitmq:/var/lib/rabbitmq
     networks:
-        - skelark-network
+      - skelark-network
+
+  redis:
+    container_name: skelark-redis
+    build:
+      context: ./
+      dockerfile: dockerfiles/redis/Dockerfile
+    tty: true
+    ports:
+      - "${REDIS_PORT}:6379"
+    networks:
+      - skelark-network
 
 networks:
   skelark-network:
