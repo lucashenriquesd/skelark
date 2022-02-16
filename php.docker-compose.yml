@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+
+  php:
+    container_name: skelark-php
+    build:
+      context: ./
+      dockerfile: dockerfiles/php/Dockerfile
+    tty: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      - skelark-network

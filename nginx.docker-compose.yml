@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+
+  nginx:
+    container_name: skelark-nginx
+    build:
+      context: ./
+      dockerfile: dockerfiles/nginx/Dockerfile
+    tty: true
+    ports:
+      - "${NGINX_HTTP_PORT}:80"
+      - "${NGINX_HTTPS_PORT}:443"
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - skelark-network

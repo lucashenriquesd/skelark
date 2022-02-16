@@ -2,128 +2,44 @@ version: '3.8'
 services:
 
   nginx:
-    container_name: skelark-nginx
-    build:
-      context: ./
-      dockerfile: dockerfiles/nginx/Dockerfile
-    tty: true
-    ports:
-      - "${NGINX_HTTP_PORT}:80"
-      - "${NGINX_HTTPS_PORT}:443"
-    working_dir: /usr/src/app
-    volumes:
-      - ./:/usr/src/app
-      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - skelark-network
+    extends:
+      file: nginx.docker-compose.yml
+      service: nginx
 
   node:
-    container_name: skelark-node
-    build:
-      context: ./
-      dockerfile: dockerfiles/node/Dockerfile
-    tty: true
-    ports:
-      - "${NODE_PORT}:3000"
-      - "${NODE_DEBUG_PORT}:9229"
-    working_dir: /usr/src/app
-    volumes:
-      - ./:/usr/src/app
-    networks:
-      - skelark-network
+    extends:
+      file: node.docker-compose.yml
+      service: node
 
   php:
-    container_name: skelark-php
-    build:
-      context: ./
-      dockerfile: dockerfiles/php/Dockerfile
-    tty: true
-    working_dir: /usr/src/app
-    volumes:
-      - ./:/usr/src/app
-    networks:
-      - skelark-network
+    extends:
+      file: php.docker-compose.yml
+      service: php
 
   mariadb:
-    container_name: skelark-mariadb
-    build:
-      context: ./
-      dockerfile: dockerfiles/mariadb/Dockerfile
-    tty: true
-    ports:
-      - "${MARIADB_PORT}:3306"
-    environment:
-      MYSQL_DATABASE: ${MARIADB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
-    working_dir: /var/lib/mysql
-    volumes:
-      - ./data/mariadb:/var/lib/mysql/
-      # - ./mysql/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - skelark-network
+    extends:
+      file: mariadb.docker-compose.yml
+      service: mariadb
 
   postgres:
-    container_name: skelark-postgres
-    build:
-      context: ./
-      dockerfile: dockerfiles/postgres/Dockerfile
-    tty: true
-    ports:
-      - "${POSTGRES_PORT}:5432"
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    working_dir: /var/lib/postgresql/data
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-    networks:
-      - skelark-network
+    extends:
+      file: postgres.docker-compose.yml
+      service: postgres
 
   mongodb:
-    container_name: skelark-mongodb
-    build: 
-      context: ./
-      dockerfile: dockerfiles/mongodb/Dockerfile
-    tty: true
-    ports:
-      - "${MONGODB_PORT}:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
-    working_dir: /data/db
-    volumes:
-      - ./data/mongodb:/data/db
-    networks:
-      - skelark-network
+    extends:
+      file: mongodb.docker-compose.yml
+      service: mongodb
 
   rabbitmq:
-    container_name: skelark-rabbitmq
-    build:
-      context: ./
-      dockerfile: dockerfiles/rabbitmq/Dockerfile
-    tty: true
-    ports:
-      - "${RABBITMQ_PORT}:5672"
-      - "${RABBITMQ_MANAGEMENT_PORT}:15672"
-    hostname: ${RABBITMQ_HOSTNAME}
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-    working_dir: /var/lib/rabbitmq
-    volumes:
-      - ./data/rabbitmq:/var/lib/rabbitmq
-    networks:
-      - skelark-network
+    extends:
+      file: rabbitmq.docker-compose.yml
+      service: rabbitmq
 
   redis:
-    container_name: skelark-redis
-    build:
-      context: ./
-      dockerfile: dockerfiles/redis/Dockerfile
-    tty: true
-    ports:
-      - "${REDIS_PORT}:6379"
-    networks:
-      - skelark-network
+    extends:
+      file: redis.docker-compose.yml
+      service: redis
 
 networks:
   skelark-network:

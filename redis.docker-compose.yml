@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+
+  redis:
+    container_name: skelark-redis
+    build:
+      context: ./
+      dockerfile: dockerfiles/redis/Dockerfile
+    tty: true
+    ports:
+      - "${REDIS_PORT}:6379"
+    networks:
+      - skelark-network
